@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.edgar</groupId>
+        <artifactId>lifeos</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>lifeos-module-identity</artifactId>
+    <name>LifeOS Identity Module</name>
+    <description>身份域：用户、微信登录、JWT、个人设置。</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.edgar</groupId>
+            <artifactId>lifeos-kernel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.edgar</groupId>
+            <artifactId>lifeos-contracts</artifactId>
+        </dependency>
+        <!-- 实现 Controller 时，在此处加入 spring-boot-starter-webmvc -->
+        <!-- 实现 MyBatis 持久层时，在此处加入 mybatis-spring-boot-starter -->
+    </dependencies>
+</project>

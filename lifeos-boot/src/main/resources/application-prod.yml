@@ -1,0 +1,21 @@
+# 生产配置：所有秘密一律来自环境变量，禁止在文件中写真实值。
+spring:
+  datasource:
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+
+lifeos:
+  jwt:
+    secret: ${JWT_SECRET}
+  llm:
+    base-url: ${LLM_BASE_URL}
+    api-key: ${LLM_API_KEY}
+  storage:
+    # 部署：OSS / COS / S3 Compatible Storage
+    type: ${STORAGE_TYPE:s3}
