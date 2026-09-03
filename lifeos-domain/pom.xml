@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.edgar</groupId>
+        <artifactId>lifeos</artifactId>
+        <version>0.2.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>lifeos-domain</artifactId>
+    <name>LifeOS Domain</name>
+    <description>领域模型层：identity/capture/planning/health/timeline/publication/insight/notification。禁止依赖 Spring/MyBatis/Redis/LLM。</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.edgar</groupId>
+            <artifactId>lifeos-common</artifactId>
+        </dependency>
+
+        <!-- 单元测试 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

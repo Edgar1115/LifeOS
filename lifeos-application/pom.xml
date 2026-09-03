@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.edgar</groupId>
+        <artifactId>lifeos</artifactId>
+        <version>0.2.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>lifeos-application</artifactId>
+    <name>LifeOS Application</name>
+    <description>业务流程层：Application Service/DTO/Command/Query API/Domain Event 发布。</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.edgar</groupId>
+            <artifactId>lifeos-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.edgar</groupId>
+            <artifactId>lifeos-domain</artifactId>
+        </dependency>
+
+        <!-- 索引：Query API 与事件对象定义在 domain（与领域模型同包） -->
+        <!-- Controller 由具体模块在需要时引入 webmvc -->
+
+        <!-- 单元测试 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

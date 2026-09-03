@@ -13,26 +13,19 @@
 
     <groupId>com.edgar</groupId>
     <artifactId>lifeos</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>LifeOS</name>
-    <description>LifeOS - Personal Life Management and AI Agent System</description>
+    <description>LifeOS - Personal Operating System (v2.0 模块化重构)</description>
 
     <modules>
-        <module>lifeos-kernel</module>
-        <module>lifeos-contracts</module>
-        <module>lifeos-module-identity</module>
-        <module>lifeos-module-capture</module>
-        <module>lifeos-module-planning</module>
-        <module>lifeos-module-health</module>
-        <module>lifeos-module-timeline</module>
-        <module>lifeos-module-publication</module>
-        <module>lifeos-module-search</module>
-        <module>lifeos-module-insight</module>
-        <module>lifeos-module-notification</module>
-        <module>lifeos-module-agent</module>
-        <module>lifeos-integration</module>
-        <module>lifeos-boot</module>
+        <module>lifeos-common</module>
+        <module>lifeos-domain</module>
+        <module>lifeos-application</module>
+        <module>lifeos-infrastructure</module>
+        <module>lifeos-agent</module>
+        <module>lifeos-public</module>
+        <module>lifeos-server</module>
     </modules>
 
     <properties>
@@ -64,67 +57,37 @@
             <!-- LifeOS 内部模块版本锁定：所有子模块引用时无需再写 version -->
             <dependency>
                 <groupId>com.edgar</groupId>
-                <artifactId>lifeos-kernel</artifactId>
+                <artifactId>lifeos-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.edgar</groupId>
-                <artifactId>lifeos-contracts</artifactId>
+                <artifactId>lifeos-domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.edgar</groupId>
-                <artifactId>lifeos-module-identity</artifactId>
+                <artifactId>lifeos-application</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.edgar</groupId>
-                <artifactId>lifeos-module-capture</artifactId>
+                <artifactId>lifeos-infrastructure</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.edgar</groupId>
-                <artifactId>lifeos-module-planning</artifactId>
+                <artifactId>lifeos-agent</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.edgar</groupId>
-                <artifactId>lifeos-module-health</artifactId>
+                <artifactId>lifeos-public</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.edgar</groupId>
-                <artifactId>lifeos-module-timeline</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.edgar</groupId>
-                <artifactId>lifeos-module-publication</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.edgar</groupId>
-                <artifactId>lifeos-module-search</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.edgar</groupId>
-                <artifactId>lifeos-module-insight</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.edgar</groupId>
-                <artifactId>lifeos-module-notification</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.edgar</groupId>
-                <artifactId>lifeos-module-agent</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.edgar</groupId>
-                <artifactId>lifeos-integration</artifactId>
+                <artifactId>lifeos-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
@@ -144,7 +107,7 @@
                 <!--
                   Spring Boot 打包插件统一放在 pluginManagement 里，
                   哪个模块需要打可执行 jar，就在那个模块的 build/plugins 里声明它。
-                  目前 lifeos-boot 还没有主类，暂时不启用。
+                  目前 lifeos-server 是唯一可执行模块。
                 -->
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
