@@ -4,10 +4,12 @@ import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import lombok.Getter;
 
 /**
  * Milestone：目标的里程碑。
  */
+@Getter
 public class Milestone extends AggregateRoot {
 
     private Long userId;
@@ -43,27 +45,9 @@ public class Milestone extends AggregateRoot {
                 : MilestoneStatus.ACTIVE;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public Long getGoalId() {
-        return goalId;
-    }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public LocalDate getDeadline() {
-        return deadline;
-    }
 
-    public BigDecimal getProgress() {
-        return progress;
-    }
 
-    public MilestoneStatus getStatus() {
-        return status;
-    }
 }

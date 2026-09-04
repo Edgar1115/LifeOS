@@ -3,10 +3,12 @@ package com.edgar.lifeos.agent.domain;
 import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.time.Instant;
+import lombok.Getter;
 
 /**
  * Agent 运行记录（一次请求 + 完整工具调用链）。
  */
+@Getter
 public class AgentRun extends AggregateRoot {
 
     private Long userId;
@@ -50,35 +52,11 @@ public class AgentRun extends AggregateRoot {
         this.finishedAt = now;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public Long getSessionId() {
-        return sessionId;
-    }
 
-    public String getRequestId() {
-        return requestId;
-    }
 
-    public AgentRunStatus getStatus() {
-        return status;
-    }
 
-    public Instant getStartedAt() {
-        return startedAt;
-    }
 
-    public Instant getFinishedAt() {
-        return finishedAt;
-    }
 
-    public String getErrorCode() {
-        return errorCode;
-    }
 
-    public String getErrorMessage() {
-        return errorMessage;
-    }
 }

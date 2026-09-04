@@ -4,10 +4,12 @@ import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import lombok.Getter;
 
 /**
  * Todo。
  */
+@Getter
 public class Todo extends AggregateRoot {
 
     private Long userId;
@@ -63,45 +65,15 @@ public class Todo extends AggregateRoot {
         }
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public Long getGoalId() {
-        return goalId;
-    }
 
-    public Long getMilestoneId() {
-        return milestoneId;
-    }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public int getPriority() {
-        return priority;
-    }
 
-    public LocalDate getPlannedDate() {
-        return plannedDate;
-    }
 
-    public Instant getDeadline() {
-        return deadline;
-    }
 
-    public TodoStatus getStatus() {
-        return status;
-    }
 
-    public Instant getCompletedAt() {
-        return completedAt;
-    }
 
     public void update(String title, String description, int priority, LocalDate plannedDate, Instant deadline) {
         this.title = title;

@@ -3,10 +3,12 @@ package com.edgar.lifeos.domain.insight;
 import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.time.Instant;
+import lombok.Getter;
 
 /**
  * 月总结。
  */
+@Getter
 public class MonthlySummary extends AggregateRoot {
 
     private Long userId;
@@ -39,31 +41,10 @@ public class MonthlySummary extends AggregateRoot {
         return s;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public int getYear() {
-        return year;
-    }
 
-    public int getMonth() {
-        return month;
-    }
 
-    public String getStatisticsJson() {
-        return statisticsJson;
-    }
 
-    public String getSummaryMarkdown() {
-        return summaryMarkdown;
-    }
 
-    public String getSuggestionsJson() {
-        return suggestionsJson;
-    }
 
-    public Instant getGeneratedAt() {
-        return generatedAt;
-    }
 }

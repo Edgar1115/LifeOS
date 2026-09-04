@@ -3,10 +3,12 @@ package com.edgar.lifeos.domain.planning.schedule;
 import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.time.Instant;
+import lombok.Getter;
 
 /**
  * Schedule：独立于 Todo 的时间安排（日历事件）。
  */
+@Getter
 public class ScheduleEvent extends AggregateRoot {
 
     private Long userId;
@@ -39,33 +41,12 @@ public class ScheduleEvent extends AggregateRoot {
         return s;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public Instant getStartTime() {
-        return startTime;
-    }
 
-    public Instant getEndTime() {
-        return endTime;
-    }
 
-    public String getLocation() {
-        return location;
-    }
 
-    public ScheduleType getEventType() {
-        return eventType;
-    }
 
     public void update(String title, String description, Instant startTime, Instant endTime, String location, ScheduleType eventType) {
         this.title = title;

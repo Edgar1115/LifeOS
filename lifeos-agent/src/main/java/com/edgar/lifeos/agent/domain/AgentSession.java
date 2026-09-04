@@ -1,10 +1,12 @@
 package com.edgar.lifeos.agent.domain;
 
 import com.edgar.lifeos.common.domain.AggregateRoot;
+import lombok.Getter;
 
 /**
  * Agent 会话。
  */
+@Getter
 public class AgentSession extends AggregateRoot {
 
     private Long userId;
@@ -24,15 +26,6 @@ public class AgentSession extends AggregateRoot {
         return s;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public String getStatus() {
-        return status;
-    }
 }

@@ -1,10 +1,12 @@
 package com.edgar.lifeos.agent.domain;
 
 import com.edgar.lifeos.common.domain.AggregateRoot;
+import lombok.Getter;
 
 /**
  * Agent 单次工具调用记录。
  */
+@Getter
 public class AgentToolCall extends AggregateRoot {
 
     private Long runId;
@@ -37,27 +39,9 @@ public class AgentToolCall extends AggregateRoot {
         this.latencyMs = latencyMs;
     }
 
-    public Long getRunId() {
-        return runId;
-    }
 
-    public String getToolName() {
-        return toolName;
-    }
 
-    public String getArgumentsJson() {
-        return argumentsJson;
-    }
 
-    public String getResultJson() {
-        return resultJson;
-    }
 
-    public String getStatus() {
-        return status;
-    }
 
-    public long getLatencyMs() {
-        return latencyMs;
-    }
 }

@@ -1,8 +1,11 @@
 package com.edgar.lifeos.domain.identity;
 
+import lombok.Getter;
+
 /**
  * 用户状态。
  */
+@Getter
 public enum UserStatus {
 
     /** 正常 */
@@ -17,9 +20,6 @@ public enum UserStatus {
         this.dbValue = dbValue;
     }
 
-    public int getDbValue() {
-        return dbValue;
-    }
 
     public static UserStatus fromDbValue(int v) {
         for (UserStatus s : values()) {

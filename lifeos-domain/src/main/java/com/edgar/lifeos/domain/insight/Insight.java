@@ -3,10 +3,12 @@ package com.edgar.lifeos.domain.insight;
 import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.time.Instant;
+import lombok.Getter;
 
 /**
  * Insight：规则引擎产生的洞察/提醒。
  */
+@Getter
 public class Insight extends AggregateRoot {
 
     private Long userId;
@@ -49,39 +51,12 @@ public class Insight extends AggregateRoot {
         this.status = "DISMISSED";
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public InsightType getType() {
-        return type;
-    }
 
-    public InsightSeverity getSeverity() {
-        return severity;
-    }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public String getEvidenceJson() {
-        return evidenceJson;
-    }
 
-    public String getStatus() {
-        return status;
-    }
 
-    public Instant getDetectedAt() {
-        return detectedAt;
-    }
 
-    public Instant getExpiresAt() {
-        return expiresAt;
-    }
 }

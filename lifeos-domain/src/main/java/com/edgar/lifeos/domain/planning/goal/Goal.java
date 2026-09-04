@@ -4,10 +4,12 @@ import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import lombok.Getter;
 
 /**
  * Goal：目标。
  */
+@Getter
 public class Goal extends AggregateRoot {
 
     private Long userId;
@@ -65,37 +67,13 @@ public class Goal extends AggregateRoot {
         this.status = GoalStatus.ARCHIVED;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public LocalDate getStartDate() {
-        return startDate;
-    }
 
-    public LocalDate getDeadline() {
-        return deadline;
-    }
 
-    public BigDecimal getProgress() {
-        return progress;
-    }
 
-    public int getPriority() {
-        return priority;
-    }
 
-    public GoalStatus getStatus() {
-        return status;
-    }
 
     public void update(String title, String description, LocalDate startDate, LocalDate deadline, int priority) {
         this.title = title;

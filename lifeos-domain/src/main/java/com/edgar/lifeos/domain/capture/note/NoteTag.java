@@ -1,10 +1,12 @@
 package com.edgar.lifeos.domain.capture.note;
 
 import com.edgar.lifeos.common.domain.AggregateRoot;
+import lombok.Getter;
 
 /**
  * Note 标签。
  */
+@Getter
 public class NoteTag extends AggregateRoot {
 
     private Long userId;
@@ -21,11 +23,5 @@ public class NoteTag extends AggregateRoot {
         return tag;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public String getName() {
-        return name;
-    }
 }

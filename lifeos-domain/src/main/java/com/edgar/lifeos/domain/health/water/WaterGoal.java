@@ -3,10 +3,12 @@ package com.edgar.lifeos.domain.health.water;
 import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.time.LocalDate;
+import lombok.Getter;
 
 /**
  * 每日饮水目标。
  */
+@Getter
 public class WaterGoal extends AggregateRoot {
 
     private Long userId;
@@ -26,15 +28,6 @@ public class WaterGoal extends AggregateRoot {
         return g;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public int getTargetMl() {
-        return targetMl;
-    }
 
-    public LocalDate getEffectiveDate() {
-        return effectiveDate;
-    }
 }

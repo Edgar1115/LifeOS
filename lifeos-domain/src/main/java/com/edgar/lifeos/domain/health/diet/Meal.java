@@ -6,10 +6,12 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 
 /**
  * 一餐（Meal）。
  */
+@Getter
 public class Meal extends AggregateRoot {
 
     private Long userId;
@@ -43,31 +45,10 @@ public class Meal extends AggregateRoot {
         items.add(item);
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public MealType getMealType() {
-        return mealType;
-    }
 
-    public Instant getMealTime() {
-        return mealTime;
-    }
 
-    public String getNote() {
-        return note;
-    }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
 
-    public BigDecimal getEstimatedCalories() {
-        return estimatedCalories;
-    }
 
-    public List<FoodItem> getItems() {
-        return items;
-    }
 }

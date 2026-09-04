@@ -1,11 +1,13 @@
 package com.edgar.lifeos.domain.capture.note;
 
 import com.edgar.lifeos.common.domain.AggregateRoot;
+import lombok.Getter;
 
 /**
  * Note：可长期编辑的 Markdown 知识文档。
  * 发布时使用快照（见 publication 域），与私人编辑版本完全分离。
  */
+@Getter
 public class Note extends AggregateRoot {
 
     private Long userId;
@@ -47,33 +49,12 @@ public class Note extends AggregateRoot {
         this.deleted = true;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public Long getFolderId() {
-        return folderId;
-    }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public String getContentMarkdown() {
-        return contentMarkdown;
-    }
 
-    public String getExcerpt() {
-        return excerpt;
-    }
 
-    public int getWordCount() {
-        return wordCount;
-    }
 
-    public boolean isDeleted() {
-        return deleted;
-    }
 
     private static int countWords(String markdown) {
         if (markdown == null || markdown.isBlank()) {

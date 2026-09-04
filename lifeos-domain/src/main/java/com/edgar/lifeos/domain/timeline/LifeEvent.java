@@ -3,6 +3,7 @@ package com.edgar.lifeos.domain.timeline;
 import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.time.Instant;
+import lombok.Getter;
 
 /**
  * LifeEvent：系统统一的人生事件索引。
@@ -10,6 +11,7 @@ import java.time.Instant;
  * <p>Timeline 是统一索引，不是业务事实表。业务数据变更通过 Domain Event 投影到这里。
  * 查询走 Timeline API 与 Agent Tool。</p>
  */
+@Getter
 public class LifeEvent extends AggregateRoot {
 
     private Long userId;
@@ -49,39 +51,12 @@ public class LifeEvent extends AggregateRoot {
         return e;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public LifeEventType getEventType() {
-        return eventType;
-    }
 
-    public String getSourceType() {
-        return sourceType;
-    }
 
-    public Long getSourceId() {
-        return sourceId;
-    }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public String getSummary() {
-        return summary;
-    }
 
-    public Instant getStartTime() {
-        return startTime;
-    }
 
-    public Instant getEndTime() {
-        return endTime;
-    }
 
-    public String getMetadataJson() {
-        return metadataJson;
-    }
 }

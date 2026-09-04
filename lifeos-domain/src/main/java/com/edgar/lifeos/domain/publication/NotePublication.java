@@ -3,10 +3,12 @@ package com.edgar.lifeos.domain.publication;
 import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.time.Instant;
+import lombok.Getter;
 
 /**
  * Note 发布记录。发布内容使用快照（NotePublishVersion），与私人编辑完全分离。
  */
+@Getter
 public class NotePublication extends AggregateRoot {
 
     private Long userId;
@@ -54,31 +56,10 @@ public class NotePublication extends AggregateRoot {
         this.currentVersionId = versionId;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public Long getNoteId() {
-        return noteId;
-    }
 
-    public String getSlug() {
-        return slug;
-    }
 
-    public PublishVisibility getVisibility() {
-        return visibility;
-    }
 
-    public Long getCurrentVersionId() {
-        return currentVersionId;
-    }
 
-    public String getStatus() {
-        return status;
-    }
 
-    public Instant getPublishedAt() {
-        return publishedAt;
-    }
 }

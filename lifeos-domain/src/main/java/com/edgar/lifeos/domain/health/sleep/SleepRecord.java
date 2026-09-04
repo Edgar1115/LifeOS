@@ -3,10 +3,12 @@ package com.edgar.lifeos.domain.health.sleep;
 import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.time.Instant;
+import lombok.Getter;
 
 /**
  * 睡眠记录。
  */
+@Getter
 public class SleepRecord extends AggregateRoot {
 
     private Long userId;
@@ -35,27 +37,9 @@ public class SleepRecord extends AggregateRoot {
         return r;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public Instant getSleepAt() {
-        return sleepAt;
-    }
 
-    public Instant getWakeAt() {
-        return wakeAt;
-    }
 
-    public int getDurationMinutes() {
-        return durationMinutes;
-    }
 
-    public Integer getQuality() {
-        return quality;
-    }
 
-    public String getNote() {
-        return note;
-    }
 }

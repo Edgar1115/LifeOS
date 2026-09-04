@@ -3,10 +3,12 @@ package com.edgar.lifeos.domain.health.workout;
 import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.math.BigDecimal;
+import lombok.Getter;
 
 /**
  * 训练组。
  */
+@Getter
 public class WorkoutSet extends AggregateRoot {
 
     private Long exerciseId;
@@ -32,23 +34,8 @@ public class WorkoutSet extends AggregateRoot {
         return s;
     }
 
-    public Long getExerciseId() {
-        return exerciseId;
-    }
 
-    public int getSetNo() {
-        return setNo;
-    }
 
-    public BigDecimal getWeight() {
-        return weight;
-    }
 
-    public Integer getReps() {
-        return reps;
-    }
 
-    public Integer getDurationSeconds() {
-        return durationSeconds;
-    }
 }

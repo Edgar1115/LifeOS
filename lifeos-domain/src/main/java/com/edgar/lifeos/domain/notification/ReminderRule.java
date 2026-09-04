@@ -3,10 +3,12 @@ package com.edgar.lifeos.domain.notification;
 import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.time.Instant;
+import lombok.Getter;
 
 /**
  * 提醒规则。Reminder 是统一能力，不属于某个具体业务域。
  */
+@Getter
 public class ReminderRule extends AggregateRoot {
 
     private Long userId;
@@ -39,33 +41,12 @@ public class ReminderRule extends AggregateRoot {
         return r;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public String getSourceType() {
-        return sourceType;
-    }
 
-    public Long getSourceId() {
-        return sourceId;
-    }
 
-    public ReminderTriggerType getTriggerType() {
-        return triggerType;
-    }
 
-    public Instant getTriggerAt() {
-        return triggerAt;
-    }
 
-    public String getCronExpression() {
-        return cronExpression;
-    }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
 
     public void disable() {
         this.enabled = false;

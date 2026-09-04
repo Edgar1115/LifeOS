@@ -1,10 +1,12 @@
 package com.edgar.lifeos.domain.identity;
 
 import com.edgar.lifeos.common.domain.AggregateRoot;
+import lombok.Getter;
 
 /**
  * 用户聚合。
  */
+@Getter
 public class User extends AggregateRoot {
 
     /** 微信 openid，同一公众号/小程序下唯一 */
@@ -33,25 +35,10 @@ public class User extends AggregateRoot {
         return user;
     }
 
-    public String getOpenid() {
-        return openid;
-    }
 
-    public String getUnionid() {
-        return unionid;
-    }
 
-    public String getNickname() {
-        return nickname;
-    }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
 
-    public UserStatus getStatus() {
-        return status;
-    }
 
     public void updateProfile(String nickname, String avatarUrl) {
         this.nickname = nickname;

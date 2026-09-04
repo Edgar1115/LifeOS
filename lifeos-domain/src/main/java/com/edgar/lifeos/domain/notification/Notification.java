@@ -3,10 +3,12 @@ package com.edgar.lifeos.domain.notification;
 import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.time.Instant;
+import lombok.Getter;
 
 /**
  * 通知（Inbox 条目）。单独留存判断记录。
  */
+@Getter
 public class Notification extends AggregateRoot {
 
     private Long userId;
@@ -49,39 +51,12 @@ public class Notification extends AggregateRoot {
         this.readStatus = true;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public String getType() {
-        return type;
-    }
 
-    public String getSeverity() {
-        return severity;
-    }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public String getContent() {
-        return content;
-    }
 
-    public String getRelatedType() {
-        return relatedType;
-    }
 
-    public Long getRelatedId() {
-        return relatedId;
-    }
 
-    public boolean isReadStatus() {
-        return readStatus;
-    }
 
-    public Instant getCreateTime() {
-        return createTime;
-    }
 }

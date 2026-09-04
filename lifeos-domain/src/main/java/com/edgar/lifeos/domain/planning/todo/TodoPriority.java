@@ -1,8 +1,11 @@
 package com.edgar.lifeos.domain.planning.todo;
 
+import lombok.Getter;
+
 /**
  * Todo 优先级。
  */
+@Getter
 public enum TodoPriority {
     LOW(1),
     MEDIUM(3),
@@ -14,9 +17,6 @@ public enum TodoPriority {
         this.value = value;
     }
 
-    public int getValue() {
-        return value;
-    }
 
     public static TodoPriority fromValue(int v) {
         for (TodoPriority p : values()) {

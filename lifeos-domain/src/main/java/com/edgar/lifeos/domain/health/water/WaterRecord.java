@@ -3,10 +3,12 @@ package com.edgar.lifeos.domain.health.water;
 import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.time.Instant;
+import lombok.Getter;
 
 /**
  * 饮水记录。
  */
+@Getter
 public class WaterRecord extends AggregateRoot {
 
     private Long userId;
@@ -30,19 +32,7 @@ public class WaterRecord extends AggregateRoot {
         return r;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public int getAmountMl() {
-        return amountMl;
-    }
 
-    public Instant getRecordedAt() {
-        return recordedAt;
-    }
 
-    public String getSource() {
-        return source;
-    }
 }

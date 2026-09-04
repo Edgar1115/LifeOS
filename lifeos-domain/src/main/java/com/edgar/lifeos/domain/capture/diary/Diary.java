@@ -5,10 +5,12 @@ import com.edgar.lifeos.common.domain.AggregateRoot;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 
 /**
  * 日记：强日期属性的个人生活记录。
  */
+@Getter
 public class Diary extends AggregateRoot {
 
     private Long userId;
@@ -49,33 +51,12 @@ public class Diary extends AggregateRoot {
         this.tags = tags == null ? new ArrayList<>() : new ArrayList<>(tags);
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public LocalDate getDiaryDate() {
-        return diaryDate;
-    }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public String getContent() {
-        return content;
-    }
 
-    public Integer getMood() {
-        return mood;
-    }
 
-    public List<String> getTags() {
-        return tags;
-    }
 
-    public boolean isDeleted() {
-        return deleted;
-    }
 
     public void delete() {
         this.deleted = true;

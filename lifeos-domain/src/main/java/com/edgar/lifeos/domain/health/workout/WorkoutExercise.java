@@ -1,10 +1,12 @@
 package com.edgar.lifeos.domain.health.workout;
 
 import com.edgar.lifeos.common.domain.AggregateRoot;
+import lombok.Getter;
 
 /**
  * 训练动作，属于某个 WorkoutSession。
  */
+@Getter
 public class WorkoutExercise extends AggregateRoot {
 
     private Long sessionId;
@@ -27,19 +29,7 @@ public class WorkoutExercise extends AggregateRoot {
         return e;
     }
 
-    public Long getSessionId() {
-        return sessionId;
-    }
 
-    public String getExerciseName() {
-        return exerciseName;
-    }
 
-    public String getMuscleGroup() {
-        return muscleGroup;
-    }
 
-    public int getSortNo() {
-        return sortNo;
-    }
 }

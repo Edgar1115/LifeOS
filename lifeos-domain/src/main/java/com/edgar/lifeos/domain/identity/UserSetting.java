@@ -1,10 +1,12 @@
 package com.edgar.lifeos.domain.identity;
 
 import com.edgar.lifeos.common.domain.AggregateRoot;
+import lombok.Getter;
 
 /**
  * 用户个人设置。例如饮水目标等数据可用单独聚合，这里先占位保持最小骨架。
  */
+@Getter
 public class UserSetting extends AggregateRoot {
 
     private Long userId;
@@ -22,13 +24,7 @@ public class UserSetting extends AggregateRoot {
         return setting;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public boolean isReminderEnabled() {
-        return reminderEnabled;
-    }
 
     public void setReminderEnabled(boolean reminderEnabled) {
         this.reminderEnabled = reminderEnabled;

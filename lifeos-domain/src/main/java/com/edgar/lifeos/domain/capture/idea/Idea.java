@@ -1,11 +1,13 @@
 package com.edgar.lifeos.domain.capture.idea;
 
 import com.edgar.lifeos.common.domain.AggregateRoot;
+import lombok.Getter;
 
 /**
  * Idea：极低成本、极短的信息捕获。
  * 建议内容 <= 500 字（强制 1000 上限）。
  */
+@Getter
 public class Idea extends AggregateRoot {
 
     private Long userId;
@@ -30,25 +32,10 @@ public class Idea extends AggregateRoot {
         return idea;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public String getContent() {
-        return content;
-    }
 
-    public IdeaStatus getStatus() {
-        return status;
-    }
 
-    public String getConvertedType() {
-        return convertedType;
-    }
 
-    public Long getConvertedId() {
-        return convertedId;
-    }
 
     public void organize() {
         if (status == IdeaStatus.RAW || status == IdeaStatus.ARCHIVED) {

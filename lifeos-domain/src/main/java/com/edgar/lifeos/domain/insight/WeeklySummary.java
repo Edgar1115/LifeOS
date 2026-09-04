@@ -4,10 +4,12 @@ import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import lombok.Getter;
 
 /**
  * 周总结。
  */
+@Getter
 public class WeeklySummary extends AggregateRoot {
 
     private Long userId;
@@ -40,31 +42,10 @@ public class WeeklySummary extends AggregateRoot {
         return s;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public LocalDate getWeekStart() {
-        return weekStart;
-    }
 
-    public LocalDate getWeekEnd() {
-        return weekEnd;
-    }
 
-    public String getStatisticsJson() {
-        return statisticsJson;
-    }
 
-    public String getSummaryMarkdown() {
-        return summaryMarkdown;
-    }
 
-    public String getSuggestionsJson() {
-        return suggestionsJson;
-    }
 
-    public Instant getGeneratedAt() {
-        return generatedAt;
-    }
 }

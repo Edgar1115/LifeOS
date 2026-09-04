@@ -1,10 +1,12 @@
 package com.edgar.lifeos.domain.capture.note;
 
 import com.edgar.lifeos.common.domain.AggregateRoot;
+import lombok.Getter;
 
 /**
  * Note 文件夹。
  */
+@Getter
 public class NoteFolder extends AggregateRoot {
 
     private Long userId;
@@ -27,21 +29,9 @@ public class NoteFolder extends AggregateRoot {
         return folder;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public Long getParentId() {
-        return parentId;
-    }
 
-    public String getName() {
-        return name;
-    }
 
-    public int getSortNo() {
-        return sortNo;
-    }
 
     public void rename(String name) {
         this.name = name;

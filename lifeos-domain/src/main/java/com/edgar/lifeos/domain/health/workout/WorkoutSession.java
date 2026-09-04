@@ -3,10 +3,12 @@ package com.edgar.lifeos.domain.health.workout;
 import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.time.Instant;
+import lombok.Getter;
 
 /**
  * 一次训练会话。
  */
+@Getter
 public class WorkoutSession extends AggregateRoot {
 
     private Long userId;
@@ -38,27 +40,9 @@ public class WorkoutSession extends AggregateRoot {
         this.durationMinutes = (int) java.time.Duration.between(startTime, endTime).toMinutes();
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public Instant getStartTime() {
-        return startTime;
-    }
 
-    public Instant getEndTime() {
-        return endTime;
-    }
 
-    public Integer getDurationMinutes() {
-        return durationMinutes;
-    }
 
-    public String getNote() {
-        return note;
-    }
 }

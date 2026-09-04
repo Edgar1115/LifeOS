@@ -3,10 +3,12 @@ package com.edgar.lifeos.domain.health.diet;
 import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.math.BigDecimal;
+import lombok.Getter;
 
 /**
  * 食物条目，属于某一餐。
  */
+@Getter
 public class FoodItem extends AggregateRoot {
 
     private Long mealId;
@@ -39,31 +41,10 @@ public class FoodItem extends AggregateRoot {
         return f;
     }
 
-    public Long getMealId() {
-        return mealId;
-    }
 
-    public String getFoodName() {
-        return foodName;
-    }
 
-    public String getAmount() {
-        return amount;
-    }
 
-    public BigDecimal getCalories() {
-        return calories;
-    }
 
-    public BigDecimal getProtein() {
-        return protein;
-    }
 
-    public BigDecimal getCarbohydrate() {
-        return carbohydrate;
-    }
 
-    public BigDecimal getFat() {
-        return fat;
-    }
 }
