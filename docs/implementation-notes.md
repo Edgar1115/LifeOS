@@ -88,7 +88,7 @@ public List<String> getTags() {
 
 **验证**：`mvn compile -pl lifeos-domain,lifeos-common -am` 通过。
 
-**提交**：未提交（待用户确认）。
+**提交**：`787de29 fix: 集合字段对外只读，防止外部篡改聚合内部状态`（已推送 main）。
 
 ## 2026-09-05 Flyway 数据库版本迁移接入
 
@@ -112,7 +112,7 @@ public List<String> getTags() {
 
 **背景**：`user` 是 SQL 保留字/常见词，业务表统一 `life_` 前缀更清晰，避免关键字冲突与歧义。
 
-**做法**：新增 `V2__rename_user_to_life_user.sql`：`ALTER TABLE user RENAME TO life_user;`
+**做法**：新增 `V2__rename_user_to_life_user.sql`：`ALTER TABLE \`user\` RENAME TO \`life_user\`;`
 
 **关键决策**：
 - **用新 V2 迁移重命名，而不是改已提交的 V1**。因为 V1 已在库中执行并记录到 `flyway_schema_history`，且启用了 `validate-on-migrate`，改 V1 会触发 checksum 校验失败。Flyway 的不可变式规范——已执行脚本永不改动，只追加新版本。
@@ -180,4 +180,6 @@ public class UserStatusTypeHandler extends BaseTypeHandler<UserStatus> {
 
 > 注：TodoPriority 与此同模式（value 1/3/5 vs ordinal 0/1/2），后续持久化时需同样处理（创建 `TodoPriorityTypeHandler`）。
 
-**提交**：本批（V2/V3/TypeHandler/application.yml）待一起提交。
+**提交**：
+- `27e4c93 feat: user 表改名 life_user 并收紧 unionid 唯一约束`（V2/V3，已推送 main）
+- `9b0bb1a fix: UserStatus 枚举按 dbValue 整数存储，与 MyBatis 默认 EnumHandler 对齐`（TypeHandler + application.yml + 本文档，已推送 main）
