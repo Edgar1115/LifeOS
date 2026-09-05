@@ -33,6 +33,8 @@ mybatis:
   # 自动注册自定义 TypeHandler（UserStatus 按 dbValue 1/0 读写，匹配 V1 status TINYINT）。
   # 不配 default-enum-type-handler：它按枚举名字存，与表结构冲突。
   type-handlers-package: com.edgar.lifeos.infrastructure.persistence.mybatis.typehandler
+  # Mapper XML 映射文件位置（接口 @MapperScan 见 MyBatisConfiguration）
+  mapper-locations: classpath*:mapper/*.xml
 
 server:
   port: 8080
