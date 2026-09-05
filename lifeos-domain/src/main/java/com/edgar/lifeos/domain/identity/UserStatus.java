@@ -1,32 +1,17 @@
 package com.edgar.lifeos.domain.identity;
 
-import lombok.Getter;
-
 /**
- * 用户状态。
+ * 用户状态（纯业务枚举）。
+ *
+ * <p>只表达领域语义，不持有任何数据库表示。数据库如何存储该枚举
+ * （TINYINT 1/0）由 infrastructure 层的 {@code UserStatusTypeHandler} 负责，
+ * 领域层不感知持久化细节。</p>
  */
-@Getter
 public enum UserStatus {
 
     /** 正常 */
-    ACTIVE(1),
+    ACTIVE,
 
     /** 禁用 */
-    DISABLED(0);
-
-    private final int dbValue;
-
-    UserStatus(int dbValue) {
-        this.dbValue = dbValue;
-    }
-
-
-    public static UserStatus fromDbValue(int v) {
-        for (UserStatus s : values()) {
-            if (s.dbValue == v) {
-                return s;
-            }
-        }
-        throw new IllegalArgumentException("未知用户状态: " + v);
-    }
+    DISABLED
 }
