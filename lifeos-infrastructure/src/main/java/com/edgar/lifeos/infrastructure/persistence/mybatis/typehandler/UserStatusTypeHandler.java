@@ -30,19 +30,28 @@ public class UserStatusTypeHandler extends BaseTypeHandler<UserStatus> {
 
     @Override
     public UserStatus getNullableResult(ResultSet rs, String columnName) throws SQLException {
-        int v = rs.getInt(columnName);
-        return v == 0 && rs.wasNull() ? null : UserStatus.fromDbValue(v);
+        int dbValue = rs.getInt(columnName);
+        if (rs.wasNull()) {
+            return null;
+        }
+        return UserStatus.fromDbValue(dbValue);
     }
 
     @Override
     public UserStatus getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-        int v = rs.getInt(columnIndex);
-        return v == 0 && rs.wasNull() ? null : UserStatus.fromDbValue(v);
+        int dbValue = rs.getInt(columnIndex);
+        if (rs.wasNull()) {
+            return null;
+        }
+        return UserStatus.fromDbValue(dbValue);
     }
 
     @Override
     public UserStatus getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-        int v = cs.getInt(columnIndex);
-        return v == 0 && cs.wasNull() ? null : UserStatus.fromDbValue(v);
+        int dbValue = cs.getInt(columnIndex);
+        if (cs.wasNull()) {
+            return null;
+        }
+        return UserStatus.fromDbValue(dbValue);
     }
 }
