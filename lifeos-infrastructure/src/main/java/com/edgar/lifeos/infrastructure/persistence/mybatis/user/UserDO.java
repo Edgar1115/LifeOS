@@ -2,8 +2,8 @@ package com.edgar.lifeos.infrastructure.persistence.mybatis.user;
 
 import java.io.Serializable;
 import java.time.Instant;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 用户表（life_user）数据库对象。
@@ -12,8 +12,8 @@ import lombok.Setter;
  * {@code status} 存整数 dbValue（1=ACTIVE，0=DISABLED），
  * 转换由 Repository 实现负责。</p>
  */
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 public class UserDO implements Serializable {
 
     private Long id;
