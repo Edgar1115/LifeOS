@@ -40,9 +40,12 @@ public class Milestone extends AggregateRoot {
 
     public void updateProgress(BigDecimal progress) {
         this.progress = progress;
-        this.status = progress.compareTo(BigDecimal.ZERO) == 0 ? MilestoneStatus.ACTIVE
-                : progress.compareTo(new BigDecimal("100")) >= 0 ? MilestoneStatus.COMPLETED
-                : MilestoneStatus.ACTIVE;
+        // 领域规则：进度达到 100% 视为完成，其余（含 0）视为进行中
+        if (progress.compareTo(new BigDecimal("100")) >= 0) {
+            this.status = MilestoneStatus.COMPLETED;
+        } else {
+            this.status = MilestoneStatus.ACTIVE;
+        }
     }
 
 

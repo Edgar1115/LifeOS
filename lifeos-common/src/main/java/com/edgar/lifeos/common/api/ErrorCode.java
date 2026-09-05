@@ -4,6 +4,11 @@ package com.edgar.lifeos.common.api;
  * 统一错误码。
  *
  * <p>业务模块可继承扩展（如 {@code capture.Errors}），但基础错误码集中在 common。</p>
+ *
+ * <p>分段规划：<br>
+ * 0xxxx —— 通用成功/失败<br>
+ * 4xxxx —— 客户端错误（参数、认证、权限、资源不存在、冲突）<br>
+ * 5xxxx —— 服务端错误（业务处理异常、内部异常）</p>
  */
 public final class ErrorCode {
 

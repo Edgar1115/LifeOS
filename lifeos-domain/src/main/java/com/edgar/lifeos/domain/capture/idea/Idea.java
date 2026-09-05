@@ -44,7 +44,11 @@ public class Idea extends AggregateRoot {
     }
 
     public void convertTo(String type, Long targetId) {
-        this.status = "NOTE".equals(type) ? IdeaStatus.CONVERTED_TO_NOTE : IdeaStatus.CONVERTED_TO_TODO;
+        if ("NOTE".equals(type)) {
+            this.status = IdeaStatus.CONVERTED_TO_NOTE;
+        } else {
+            this.status = IdeaStatus.CONVERTED_TO_TODO;
+        }
         this.convertedType = type;
         this.convertedId = targetId;
     }

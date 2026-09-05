@@ -33,6 +33,7 @@ public class Note extends AggregateRoot {
         note.folderId = folderId;
         note.title = title;
         note.contentMarkdown = contentMarkdown;
+        note.excerpt = buildExcerpt(contentMarkdown);
         note.wordCount = countWords(contentMarkdown);
         return note;
     }

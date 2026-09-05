@@ -13,6 +13,7 @@ public class AgentSession extends AggregateRoot {
 
     private String title;
 
+    /** 会话状态：ACTIVE / ARCHIVED（持久化为字符串，未建模为枚举） */
     private String status;
     
     protected AgentSession() {

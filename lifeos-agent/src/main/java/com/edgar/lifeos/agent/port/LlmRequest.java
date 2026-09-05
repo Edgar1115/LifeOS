@@ -4,6 +4,11 @@ import java.util.List;
 
 /**
  * LLM 请求。
+ *
+ * @param model       模型标识（如 gpt-4o、deepseek-chat）
+ * @param messages    对话消息列表，按时间顺序
+ * @param temperature 采样温度（0~2）：越高越随机，越低越确定；null 表示用服务端默认值
+ * @param stream      是否流式返回
  */
 public record LlmRequest(
         String model,

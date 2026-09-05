@@ -23,8 +23,10 @@ public class AgentRun extends AggregateRoot {
 
     private Instant finishedAt;
 
+    /** 失败时的错误码（仅 status=FAILED 时有值；成功/进行中为 null） */
     private String errorCode;
 
+    /** 失败时的错误描述（仅 status=FAILED 时有值；成功/进行中为 null） */
     private String errorMessage;
 
     protected AgentRun() {

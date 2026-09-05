@@ -17,6 +17,7 @@ public class AgentToolCall extends AggregateRoot {
 
     private String resultJson;
 
+    /** 调用状态：RUNNING / SUCCEEDED / FAILED（持久化为字符串） */
     private String status;
 
     private long latencyMs;

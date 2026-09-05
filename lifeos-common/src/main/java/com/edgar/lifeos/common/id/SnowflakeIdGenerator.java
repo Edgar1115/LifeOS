@@ -14,9 +14,9 @@ public class SnowflakeIdGenerator implements IdGenerator {
     private static final long DATA_CENTER_ID_BITS = 5L;
     private static final long SEQUENCE_BITS = 12L;
 
-    private static final long MAX_WORKER_ID = ~(-1L << WORKER_ID_BITS);
-    private static final long MAX_DATA_CENTER_ID = ~(-1L << DATA_CENTER_ID_BITS);
-    private static final long SEQUENCE_MASK = ~(-1L << SEQUENCE_BITS);
+    private static final long MAX_WORKER_ID = (1L << WORKER_ID_BITS) - 1;          // 2^5-1 = 31
+    private static final long MAX_DATA_CENTER_ID = (1L << DATA_CENTER_ID_BITS) - 1; // 2^5-1 = 31
+    private static final long SEQUENCE_MASK = (1L << SEQUENCE_BITS) - 1;            // 2^12-1 = 4095
 
     private static final long WORKER_ID_SHIFT = SEQUENCE_BITS;
     private static final long DATA_CENTER_ID_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS;
@@ -68,6 +68,7 @@ public class SnowflakeIdGenerator implements IdGenerator {
                 | sequence;
     }
 
+    /** 同一毫秒内序列号耗尽时，自旋等到下一个毫秒再继续 */
     private long waitNextMillis(long lastTimestamp) {
         long timestamp = currentTimeMillis();
         while (timestamp <= lastTimestamp) {

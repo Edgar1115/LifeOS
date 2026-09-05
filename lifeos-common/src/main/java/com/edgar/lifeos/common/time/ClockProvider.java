@@ -31,7 +31,10 @@ public interface ClockProvider {
         };
     }
 
-    /** 仅当运维显式配置时使用。这里固定为系统默认时区。 */
+    /**
+     * 系统默认时区（业务统一使用 Asia/Shanghai）。
+     * 目前固定为上海时区；若未来需要按部署环境切换，可改为从配置读取。
+     */
     final class SystemZone {
         private static final ZoneId DEFAULT_ZONE = ZoneId.of("Asia/Shanghai");
     }

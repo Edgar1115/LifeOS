@@ -3,6 +3,9 @@ package com.edgar.lifeos.server.exception;
 import com.edgar.lifeos.common.api.ErrorCode;
 import com.edgar.lifeos.common.api.Result;
 import com.edgar.lifeos.common.exception.BusinessException;
+import com.edgar.lifeos.common.exception.ConflictException;
+import com.edgar.lifeos.common.exception.ForbiddenException;
+import com.edgar.lifeos.common.exception.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -18,18 +21,18 @@ public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @ExceptionHandler(com.edgar.lifeos.common.exception.NotFoundException.class)
-    public Result<Void> handleNotFound(com.edgar.lifeos.common.exception.NotFoundException e) {
+    @ExceptionHandler(NotFoundException.class)
+    public Result<Void> handleNotFound(NotFoundException e) {
         return Result.failure(e.getCode(), e.getMessage());
     }
 
-    @ExceptionHandler(com.edgar.lifeos.common.exception.ForbiddenException.class)
-    public Result<Void> handleForbidden(com.edgar.lifeos.common.exception.ForbiddenException e) {
+    @ExceptionHandler(ForbiddenException.class)
+    public Result<Void> handleForbidden(ForbiddenException e) {
         return Result.failure(e.getCode(), e.getMessage());
     }
 
-    @ExceptionHandler(com.edgar.lifeos.common.exception.ConflictException.class)
-    public Result<Void> handleConflict(com.edgar.lifeos.common.exception.ConflictException e) {
+    @ExceptionHandler(ConflictException.class)
+    public Result<Void> handleConflict(ConflictException e) {
         return Result.failure(e.getCode(), e.getMessage());
     }
 

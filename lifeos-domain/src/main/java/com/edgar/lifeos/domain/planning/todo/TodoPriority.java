@@ -4,6 +4,9 @@ import lombok.Getter;
 
 /**
  * Todo 优先级。
+ *
+ * <p>数值为排序权重：越小越优先。使用 1/3/5 而非连续值，中间间隔
+ * 预留了将来插入中间档位（如 LOW-MEDIUM=2）的扩展空间，避免改动现有值。</p>
  */
 @Getter
 public enum TodoPriority {
