@@ -30,8 +30,9 @@ mybatis:
   configuration:
     # 数据库字段下划线自动映射为 Java 驼峰属性
     map-underscore-to-camel-case: true
-    # 枚举按名字存储
-    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+  # 自动注册自定义 TypeHandler（UserStatus 按 dbValue 1/0 读写，匹配 V1 status TINYINT）。
+  # 不配 default-enum-type-handler：它按枚举名字存，与表结构冲突。
+  type-handlers-package: com.edgar.lifeos.infrastructure.persistence.mybatis.typehandler
 
 server:
   port: 8080

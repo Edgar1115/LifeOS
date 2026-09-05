@@ -89,3 +89,95 @@ public List<String> getTags() {
 **验证**：`mvn compile -pl lifeos-domain,lifeos-common -am` 通过。
 
 **提交**：未提交（待用户确认）。
+
+## 2026-09-05 Flyway 数据库版本迁移接入
+
+**背景**：Project 从骨架阶段进入 Phase 1（Identity/User），需要数据库结构版本管理。之前 application.yml 里就预留了 `# Flyway 后续接入时打开` 的注释。
+
+**做法**：
+- `lifeos-server/pom.xml` 引入 `spring-boot-starter-flyway` + `flyway-mysql`（版本由 Spring Boot 4.0.6 BOM 管理，Flyway 11.14.1）。
+- `application.yml` 启用 `spring.flyway`（enabled + validate-on-migrate）。
+- 新增 `db/migration/V1__init_schema.sql`：建 user 表（对齐 `User` 聚合 + `AggregateRoot` 基类）。
+
+**踩坑（关键）**：
+- **Spring Boot 4 模块化是最大的坑**。Spring Boot 4 把庞大的 `spring-boot-autoconfigure` 拆成按技术隔离的小模块，只加裸 `flyway-core` **不会自动配置**，必须显式引入 `spring-boot-starter-flyway`（内含 `spring-boot-flyway` 自动配置 jar）。症状：jar 里有 flyway-core 但启动时没有任何 Flyway 日志，数据库空表。
+- **存量的 JDBC URL bug**：骨架里 `characterEncoding=utf8mb4` 不是合法 Java charset 名，Connector/J 报 `Unsupported character encoding 'utf8mb4'`。正确值是 `UTF-8`。这是项目首次真正连数据库才暴露的埋坑。
+- **本机 3306 被系统级 mysqld 占用**（`/usr/local/mysql` 装在跑），所以本地开发用独立 Docker 容器 `lifeos-mysql` 映射宿主 3307，`application-local.yml` 指向 3307 隔离。
+
+**验证**：Docker 起 MySQL 8.4；应用 local profile 启动，Flyway 日志 `Successfully applied 1 migration ... now at version v1`；`flyway_schema_history` 记录 version=1 success=1，user 表 8 字段全部创建，与领域模型对齐。
+
+**提交**：`b9a5e9b feat: 接入 Flyway 数据库版本迁移`（已推送 main）。
+
+## 2026-09-05 user 表名 → life_user（V2 迁移）
+
+**背景**：`user` 是 SQL 保留字/常见词，业务表统一 `life_` 前缀更清晰，避免关键字冲突与歧义。
+
+**做法**：新增 `V2__rename_user_to_life_user.sql`：`ALTER TABLE user RENAME TO life_user;`
+
+**关键决策**：
+- **用新 V2 迁移重命名，而不是改已提交的 V1**。因为 V1 已在库中执行并记录到 `flyway_schema_history`，且启用了 `validate-on-migrate`，改 V1 会触发 checksum 校验失败。Flyway 的不可变式规范——已执行脚本永不改动，只追加新版本。
+- 已验证：V1→V1 改表名是"先删表名"的破坏性操作已避免，本方案安全。
+- 实测：应用启动，Flyway 依次执行 V2（和后续 V3），`life_user` 表建立成功，历史记录 v1/v2 均 success。
+
+**验证**：`SHOW TABLES` → `life_user`；`flyway_schema_history` version=2 success=1。
+
+## 2026-09-05 unionid 唯一索引（V3 迁移）
+
+**背景**：审查时发现 `unionid` 在 V1 建的是普通索引 `idx_user_unionid`。微信 unionid 是同一开发者账号下跨应用（公众号/小程序/开放平台）的统一身份标识，**一个自然人只能对应一个 LifeOS 用户**，所以必须唯一。
+
+**做法**：新增 `V3__make_unionid_unique.sql`：
+```sql
+ALTER TABLE `life_user`
+    DROP INDEX `idx_user_unionid`,
+    ADD UNIQUE KEY `uk_user_unionid` (`unionid`);
+```
+
+**关键点**：
+- MySQL 唯一索引**允许多个 NULL 并存**——未绑定微信（unionid 为 NULL）的行互不冲突，可空字段不受唯一约束影响。
+- 仍走新迁移而非改 V1（checksum 校验，同前）。
+
+**验证**：`SHOW INDEX` 显示 `uk_user_unionid`（Non_unique=0）；历史 v1/v2/v3 均 success；unionid 重复插入会被 MySQL 拒绝。
+
+## 2026-09-05 UserStatus 枚举 DB 表示 vs MyBatis 默认 EnumHandler 不一致
+
+**背景**：发现数据库、领域模型、MyBatis 三方对 `UserStatus` 的存储表示不一致——这是接入 Flyway 做真实建表后才暴露的：
+- **数据库**（V1）：`status TINYINT`，存整数 `1`（ACTIVE）/`0`（DISABLED）
+- **领域模型**：`UserStatus.dbValue` + `fromDbValue()` 明确按整数存储的意图
+- **MyBatis 默认**：`default-enum-type-handler: EnumTypeHandler` 按**枚举名字**存取字符串（如 `'ACTIVE'`）
+
+Handler 按名字对着整数列读写时必然出错。**TodoPriority 同理**（value 1/3/5，`fromValue()`），只是还没建表，一并记着。
+
+**做法（方案 A：自定义 TypeHandler）**：
+1. `lifeos-infrastructure/.../typehandler/UserStatusTypeHandler.java`：
+   - `@MappedTypes(UserStatus.class)` 精确匹配
+   - `setNonNullParameter` 写 `dbValue`（1/0）
+   - `getNullableResult` 调 `UserStatus.fromDbValue()` 还原，并处理 NULL（`wasNull()`）
+2. `application.yml`：
+   - **移除** `default-enum-type-handler`（否则全局按名字存，与自定义精确匹配冲突）
+   - 加 `type-handlers-package: com.edgar.lifeos.infrastructure.persistence.mybatis.typehandler` 自动注册
+
+```java
+@MappedTypes(UserStatus.class)
+public class UserStatusTypeHandler extends BaseTypeHandler<UserStatus> {
+    @Override
+    public void setNonNullParameter(PreparedStatement ps, int i, UserStatus p, JdbcType jt) throws SQLException {
+        ps.setInt(i, p.getDbValue());
+    }
+    @Override
+    public UserStatus getNullableResult(ResultSet rs, String col) throws SQLException {
+        int v = rs.getInt(col);
+        return v == 0 && rs.wasNull() ? null : UserStatus.fromDbValue(v);
+    }
+    // getNullableResult(int) / getNullableResult(CallableStatement) 同理
+}
+```
+
+**备选方案（未采用）**：
+- EnumOrdinalTypeHandler 按 `ordinal()` 存——ACTIVE ordinal=0 而 dbValue=1，值冲突，不可用。
+- 改表结构存枚举名——破坏性大、与 dbValue 语义相悖。
+
+**验证**：`mvn package` 编译通过；应用 local profile 启动成功（TypeHandler 经 `type-handlers-package` 扫描注册无报错）。
+
+> 注：TodoPriority 与此同模式（value 1/3/5 vs ordinal 0/1/2），后续持久化时需同样处理（创建 `TodoPriorityTypeHandler`）。
+
+**提交**：本批（V2/V3/TypeHandler/application.yml）待一起提交。
