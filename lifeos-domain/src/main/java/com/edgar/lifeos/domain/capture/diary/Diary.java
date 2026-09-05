@@ -4,7 +4,9 @@ import com.edgar.lifeos.common.domain.AggregateRoot;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import lombok.AccessLevel;
 import lombok.Getter;
 
 /**
@@ -25,6 +27,8 @@ public class Diary extends AggregateRoot {
     /** 情绪评分 1-5，可空 */
     private Integer mood;
 
+    /** 对外只读，修改走 update */
+    @Getter(AccessLevel.NONE)
     private List<String> tags = new ArrayList<>();
 
     /** 软删除标记 */
@@ -51,12 +55,10 @@ public class Diary extends AggregateRoot {
         this.tags = tags == null ? new ArrayList<>() : new ArrayList<>(tags);
     }
 
-
-
-
-
-
-
+    /** 只读视图，外部无法修改 */
+    public List<String> getTags() {
+        return Collections.unmodifiableList(tags);
+    }
 
     public void delete() {
         this.deleted = true;

@@ -5,7 +5,9 @@ import com.edgar.lifeos.common.domain.AggregateRoot;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import lombok.AccessLevel;
 import lombok.Getter;
 
 /**
@@ -26,6 +28,8 @@ public class Meal extends AggregateRoot {
 
     private BigDecimal estimatedCalories;
 
+    /** 对外只读，修改走 addItem */
+    @Getter(AccessLevel.NONE)
     private List<FoodItem> items = new ArrayList<>();
 
     protected Meal() {
@@ -45,10 +49,8 @@ public class Meal extends AggregateRoot {
         items.add(item);
     }
 
-
-
-
-
-
-
+    /** 只读视图，外部无法修改 */
+    public List<FoodItem> getItems() {
+        return Collections.unmodifiableList(items);
+    }
 }
