@@ -3,6 +3,8 @@ package com.edgar.lifeos.domain.identity;
 import com.edgar.lifeos.common.domain.AggregateRoot;
 import lombok.Getter;
 
+import java.time.Instant;
+
 /**
  * 用户聚合。
  */
@@ -32,6 +34,25 @@ public class User extends AggregateRoot {
         user.nickname = nickname;
         user.avatarUrl = avatarUrl;
         user.status = UserStatus.ACTIVE;
+        return user;
+    }
+
+    /**
+     * 从持久化状态重建聚合（Repository 读取场景）。
+     *
+     * <p>还原全部持久化状态：聚合坐标（id/createdAt/updatedAt）+ 用户自身状态。</p>
+     */
+    public static User reconstitute(Long id, String openid, String unionid, String nickname,
+                                    String avatarUrl, UserStatus status, Instant createdAt, Instant updatedAt) {
+        User user = new User();
+        user.setId(id);
+        user.openid = openid;
+        user.unionid = unionid;
+        user.nickname = nickname;
+        user.avatarUrl = avatarUrl;
+        user.status = status;
+        user.setCreatedAt(createdAt);
+        user.setUpdatedAt(updatedAt);
         return user;
     }
 
