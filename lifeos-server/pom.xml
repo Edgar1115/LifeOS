@@ -60,6 +60,18 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Flyway Starter：Spring Boot 4 模块化拆分后必须显式引入，
+             自动配置 + flyway-core 都在其中；版本由 BOM 管理（4.0.6） -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-flyway</artifactId>
+        </dependency>
+        <!-- MySQL 8 需要独立的 database 模块（Flyway 9+ 拆分） -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-mysql</artifactId>
+        </dependency>
+
         <!-- 测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -6,7 +6,7 @@ spring:
 
   datasource:
     # MySQL 是业务事实数据源
-    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/lifeos?useUnicode=true&characterEncoding=utf8mb4&serverTimezone=Asia/Shanghai}
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/lifeos?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai}
     username: ${MYSQL_USER:root}
     password: ${MYSQL_PASSWORD:root}
 
@@ -20,16 +20,18 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: Asia/Shanghai
 
+  flyway:
+    # 数据库结构版本迁移；脚本默认从 classpath:db/migration 加载
+    enabled: true
+    # 校验迁移脚本 checksum，防止已执行的迁移被篡改
+    validate-on-migrate: true
+
 mybatis:
   configuration:
     # 数据库字段下划线自动映射为 Java 驼峰属性
     map-underscore-to-camel-case: true
     # 枚举按名字存储
     default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
-
-# Flyway 后续接入时打开（当前离线仓库暂无 Flyway 依赖）
-#  flyway:
-#    locations: classpath:db/migration
 
 server:
   port: 8080

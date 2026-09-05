@@ -1,7 +1,9 @@
 # 本地开发配置：只用于本机开发，不包含真实生产秘密。
 spring:
   datasource:
-    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/lifeos?useUnicode=true&characterEncoding=utf8mb4&serverTimezone=Asia/Shanghai}
+    # 本地开发连 LifeOS 专用 MySQL 容器（docker lifeos-mysql，宿主端口 3307）。
+    # 本机 3306 被系统级 mysqld 占用，故用 3307 隔离。
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3307/lifeos?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai}
     username: ${MYSQL_USER:root}
     password: ${MYSQL_PASSWORD:root}
 
