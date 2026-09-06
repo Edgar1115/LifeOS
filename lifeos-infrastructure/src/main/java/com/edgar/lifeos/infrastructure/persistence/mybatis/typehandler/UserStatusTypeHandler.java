@@ -56,19 +56,20 @@ public class UserStatusTypeHandler extends BaseTypeHandler<UserStatus> {
         return fromDbValue(dbValue);
     }
 
-    /** 枚举 -> 数据库整数值（1=ACTIVE，0=DISABLED） */
+    /** 枚举 -> 数据库整数值（1=ACTIVE，0=DISABLED）。枚举穷尽由编译期保证，新增枚举值必须在这里补分支 */
     private static int toDbValue(UserStatus status) {
-        if (status == UserStatus.ACTIVE) {
-            return 1;
-        }
-        return 0;
+        return switch (status) {
+            case ACTIVE -> 1;
+            case DISABLED -> 0;
+        };
     }
 
-    /** 数据库整数值 -> 枚举（1=ACTIVE，0=DISABLED） */
+    /** 数据库整数值 -> 枚举（1=ACTIVE，0=DISABLED），非法值抛异常防止脏数据被静默吞掉 */
     private static UserStatus fromDbValue(int dbValue) {
-        if (dbValue == 1) {
-            return UserStatus.ACTIVE;
-        }
-        return UserStatus.DISABLED;
+        return switch (dbValue) {
+            case 1 -> UserStatus.ACTIVE;
+            case 0 -> UserStatus.DISABLED;
+            default -> throw new IllegalArgumentException("非法用户状态值: " + dbValue);
+        };
     }
 }
