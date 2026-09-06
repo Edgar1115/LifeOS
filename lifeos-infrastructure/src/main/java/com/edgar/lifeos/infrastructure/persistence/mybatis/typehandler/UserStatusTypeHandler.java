@@ -64,12 +64,12 @@ public class UserStatusTypeHandler extends BaseTypeHandler<UserStatus> {
         };
     }
 
-    /** 数据库整数值 -> 枚举（1=ACTIVE，0=DISABLED），非法值抛异常防止脏数据被静默吞掉 */
-    private static UserStatus fromDbValue(int dbValue) {
+    /** 数据库整数值 -> 枚举（1=ACTIVE，0=DISABLED），非法值当作 SQLException 抛出，防止脏数据被静默吞掉 */
+    private static UserStatus fromDbValue(int dbValue) throws SQLException {
         return switch (dbValue) {
             case 1 -> UserStatus.ACTIVE;
             case 0 -> UserStatus.DISABLED;
-            default -> throw new IllegalArgumentException("非法用户状态值: " + dbValue);
+            default -> throw new SQLException("非法用户状态值: " + dbValue);
         };
     }
 }
